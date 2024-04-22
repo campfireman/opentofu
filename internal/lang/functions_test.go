@@ -782,6 +782,13 @@ func TestFunctions(t *testing.T) {
 			},
 		},
 
+		"rsaencrypt": {
+			{
+				fmt.Sprintf("rsaencrypt(%#v, %#v)", "message", PublicKey),
+				cty.StringVal(CipherBase64),
+			},
+		},
+
 		"sensitive": {
 			{
 				`sensitive(1)`,
@@ -1368,6 +1375,17 @@ OLlRAoGBAIZ5Uv4Z3s8O7WKXXUe/lq6j7vfiVkR1NW/Z/WLKXZpnmvJ7FgxN4e56
 RXT7GwNQHIY8eDjDnsHxzrxd+raOxOZeKcMHj3XyjCX3NHfTscnsBPAGYpY/Wxzh
 T8UYnFu6RzkixElTf2rseEav7rkdKkI3LAeIZy7B0HulKKsmqVQ7
 -----END RSA PRIVATE KEY-----
+`
+	PublicKey = `
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgUElV5mwqkloIrM8ZNZ7
+2gSCcnSJt7+/Usa5G+D15YQUAdf9c1zEekTfHgDP+04nw/uFNFaE5v1RbHaPxhZY
+Vg5ZErNCa/hzn+x10xzcepeS3KPVXcxae4MR0BEegvqZqJzN9loXsNL/c3H/B+2G
+le3hTxjlWFb3F5qLgR+4Mf4ruhER1v6eHQa/nchi03MBpT4UeJ7MrL92hTJYLdpS
+yCqmr8yjxkKJDVC2uRrr+sTSxfh7r6v24u/vp/QTmBIAlNPgadVAZw17iNNb7vjV
+7Gwl/5gHXonCUKURaV++dBNLrHIZpqcAM8wHRph8mD1EfL9hsz77pHewxolBATV+
+7QIDAQAB
+-----END PUBLIC KEY-----	
 `
 	Poem = `Fleas:
 Adam

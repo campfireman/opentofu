@@ -357,6 +357,10 @@ var DescriptionList = map[string]descriptionEntry{
 		Description:      "`rsadecrypt` decrypts an RSA-encrypted ciphertext, returning the corresponding cleartext.",
 		ParamDescription: []string{"", ""},
 	},
+	"rsaencrypt": {
+		Description:      "`rsaencrypt` encrypts a given cleartext, returning the corresponding RSA-encrypted base64 ciphertext.",
+		ParamDescription: []string{"", ""},
+	},
 	"sensitive": {
 		Description:      "`sensitive` takes any value and returns a copy of it marked so that OpenTofu will treat it as sensitive, with the same meaning and behavior as for [sensitive input variables](/language/values/variables#suppressing-values-in-cli-output).",
 		ParamDescription: []string{""},

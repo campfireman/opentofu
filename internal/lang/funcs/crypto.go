@@ -7,6 +7,7 @@ package funcs
 
 import (
 	"crypto/md5"
+	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha1"
 	"crypto/sha256"
@@ -190,6 +191,57 @@ var RsaDecryptFunc = function.New(&function.Spec{
 		}
 
 		return cty.StringVal(string(out)), nil
+	},
+})
+
+// RsaDecryptFunc constructs a function that encrypts a given plain text
+// with the provided RSA public key and encodes into into base64
+var RsaEncryptFunc = function.New(&function.Spec{
+	Params: []function.Parameter{
+		{
+			Name: "plaintext",
+			Type: cty.String,
+		},
+		{
+			Name: "publickey",
+			Type: cty.String,
+		},
+	},
+	Type:         function.StaticReturnType(cty.String),
+	RefineResult: refineNotNull,
+	Impl: func(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
+		s := args[0].AsString()
+		key := args[1].AsString()
+
+		rawPublicKey, err := ssh.ParsePublicKey([]byte(key))
+
+		if err != nil {
+			var errStr string
+			switch e := err.(type) {
+			// TODO: add cases here
+			default:
+				errStr = fmt.Sprintf("invalid public key: %s", e)
+			}
+			return cty.UnknownVal(cty.String), function.NewArgErrorf(1, errStr)
+
+		}
+
+		parsedCryptoKey := rawPublicKey.(ssh.CryptoPublicKey)
+		pubCrypto := parsedCryptoKey.CryptoPublicKey()
+
+		publicKey, ok := pubCrypto.(*rsa.PublicKey)
+		if !ok {
+			return cty.UnknownVal(cty.String), function.NewArgErrorf(1, "invalid public key type %t", rawPublicKey)
+		}
+
+		out, err := rsa.EncryptPKCS1v15(rand.Reader, publicKey, []byte(s))
+		if err != nil {
+			return cty.UnknownVal(cty.String), fmt.Errorf("failed to decrypt: %w", err)
+		}
+
+		b := base64.StdEncoding.EncodeToString(out)
+
+		return cty.StringVal(b), nil
 	},
 })
 

@@ -449,6 +449,44 @@ func TestRsaDecrypt(t *testing.T) {
 	}
 }
 
+// TODO: tests
+// func TestRsaEncrypt(t *testing.T) {
+// tests := []struct {
+// 	PlainText cty.Value
+// 	PublicKey cty.Value
+// 	Want       cty.Value
+// 	Err        string
+// }{
+// Base-64 encoded cipher decrypts correctly
+// OpenSSH key format
+// Wrong key
+// Bad key
+// Empty key
+// Bad ciphertext
+// Empty ciphertext
+// }
+// for _, test := range tests {
+// 	t.Run(fmt.Sprintf("RsaDecrypt(%#v, %#v)", test.Ciphertext, test.Privatekey), func(t *testing.T) {
+// 		got, err := RsaDecrypt(test.Ciphertext, test.Privatekey)
+
+// 		if test.Err != "" {
+// 			if err == nil {
+// 				t.Fatal("succeeded; want error")
+// 			} else if err.Error() != test.Err {
+// 				t.Fatalf("wrong error\ngot:  %s\nwant: %s", err.Error(), test.Err)
+// 			}
+// 			return
+// 		} else if err != nil {
+// 			t.Fatalf("unexpected error: %s", err)
+// 		}
+
+// 		if !got.RawEquals(test.Want) {
+// 			t.Errorf("wrong result\ngot:  %#v\nwant: %#v", got, test.Want)
+// 		}
+// 	})
+// }
+// }
+
 func TestSha1(t *testing.T) {
 	tests := []struct {
 		String cty.Value

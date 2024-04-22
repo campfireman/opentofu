@@ -662,6 +662,10 @@
             "title": "<code>rsadecrypt</code>",
             "path": "language/functions/rsadecrypt"
           },
+          {
+            "title": "<code>rsaencrypt</code>",
+            "path": "language/functions/rsaencrypt"
+          },
           { "title": "<code>sha1</code>", "path": "language/functions/sha1" },
           {
             "title": "<code>sha256</code>",
